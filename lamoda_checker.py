@@ -13,7 +13,9 @@ from email.mime.text import MIMEText
 year = "2024"  # Полный год
 month = "12"  # Формат месяца: 01, 02, 03, ..., 12
 cookie = "_"  # Куки
-
+id = (
+    "123"  # id партнера можно взять на стринице поставок (календарь) из адресной строки
+)
 toaddr_list = [
     "example1@mail.ru",
     "example2@mail.ru",
