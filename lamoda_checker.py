@@ -12,7 +12,9 @@ from email.mime.text import MIMEText
 # Конфигурация
 year = "2024"  # Полный год
 month = "12"  # Формат месяца: 01, 02, 03, ..., 12
+id = '123' # id можно взять из ссылки, перейдя в календарь
 cookie = "_"  # Куки
+
 toaddr_list = [
     "example1@mail.ru",
     "example2@mail.ru",
@@ -26,7 +28,7 @@ mypass = "password"  # Пароль от почты для внешних при
 #
 
 
-url = f"https://backend.gm.lamoda.ru/api/v1/calendar?month={year}-{month}&partnerId=1004&directionId=1"
+url = f"https://backend.gm.lamoda.ru/api/v1/calendar?month={year}-{month}&partnerId={id}&directionId=1"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
     "Accept": "application/json",
