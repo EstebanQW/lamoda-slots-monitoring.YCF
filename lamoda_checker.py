@@ -4,32 +4,24 @@ import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-#
-#
-#
 
-
-# Конфигурация
-year = "2024"  # Полный год
-month = "12"  # Формат месяца: 01, 02, 03, ..., 12
-cookie = "_"  # Куки
-id = (
+#==========================================================#
+YEAR = "2024"  # Полный год
+MONTH = "12"  # Формат месяца: 01, 02, 03, ..., 12
+COOKIE = "_"  # Куки
+PARTNER_ID = (
     "123"  # id партнера можно взять на стринице поставок (календарь) из адресной строки
 )
-toaddr_list = [
+TO_ADDR_LIST = [
     "example1@mail.ru",
     "example2@mail.ru",
 ]  # Список email-адресов для отправки сообщений
-
-fromaddr = "send_email@mail.ru"  # Почта, с которой будут отправляться письма
-mypass = "password"  # Пароль от почты для внешних приложений. Для mail.ru брать по ссылке - https://account.mail.ru/user/2-step-auth/passwords
-
-#
-#
-#
+FROM_ADDR = "send_email@mail.ru"  # Почта, с которой будут отправляться письма
+MAIL_PASSWORD = "password"  # Пароль от почты для внешних приложений. Для mail.ru брать по ссылке - https://account.mail.ru/user/2-step-auth/passwords
+#==========================================================#
 
 
-url = f"https://backend.gm.lamoda.ru/api/v1/calendar?month={year}-{month}&partnerId={id}&directionId=1"
+url = f"https://backend.gm.lamoda.ru/api/v1/calendar?month={YEAR}-{MONTH}&partnerId={PARTNER_ID}&directionId=1"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0",
     "Accept": "application/json",
@@ -38,7 +30,7 @@ headers = {
     "Origin": "https://gm.lamoda.ru",
     "Connection": "keep-alive",
     "Referer": "https://gm.lamoda.ru/",
-    "Cookie": cookie,
+    "Cookie": COOKIE,
     "Sec-Fetch-Dest": "empty",
     "Sec-Fetch-Mode": "cors",
     "Sec-Fetch-Site": "same-site",
@@ -100,8 +92,8 @@ def send_mail(
 
     # Формирование и отправка письма
     msg = MIMEMultipart()
-    msg["From"] = fromaddr
-    msg["To"] = ", ".join(toaddr_list)
+    msg["From"] = FROM_ADDR
+    msg["To"] = ", ".join(TO_ADDR_LIST)
     msg["Subject"] = tema
     msg.attach(MIMEText(body, "html"))
 
@@ -109,8 +101,8 @@ def send_mail(
     for _ in range(max_retries):
         try:
             server = smtplib.SMTP_SSL("smtp.mail.ru", 465)
-            server.login(fromaddr, mypass)  # Логин на сервере
-            server.sendmail(fromaddr, toaddr_list, msg.as_string())  # Отправка письма
+            server.login(FROM_ADDR, MAIL_PASSWORD)  # Логин на сервере
+            server.sendmail(FROM_ADDR, TO_ADDR_LIST, msg.as_string())  # Отправка письма
             server.quit()
             print(f"Сообщение отправлено.")
             print(
