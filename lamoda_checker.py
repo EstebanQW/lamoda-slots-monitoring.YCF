@@ -1,11 +1,11 @@
-import requests
 import smtplib
 import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+import requests
 
-#==========================================================#
+# ==========================================================#
 YEAR = "2024"  # Полный год
 MONTH = "12"  # Формат месяца: 01, 02, 03, ..., 12
 COOKIE = "_"  # Куки
@@ -18,7 +18,7 @@ TO_ADDR_LIST = [
 ]  # Список email-адресов для отправки сообщений
 FROM_ADDR = "send_email@mail.ru"  # Почта, с которой будут отправляться письма
 MAIL_PASSWORD = "password"  # Пароль от почты для внешних приложений. Для mail.ru брать по ссылке - https://account.mail.ru/user/2-step-auth/passwords
-#==========================================================#
+# ==========================================================#
 
 
 url = f"https://backend.gm.lamoda.ru/api/v1/calendar?month={YEAR}-{MONTH}&partnerId={PARTNER_ID}&directionId=1"
@@ -104,7 +104,7 @@ def send_mail(
             server.login(FROM_ADDR, MAIL_PASSWORD)  # Логин на сервере
             server.sendmail(FROM_ADDR, TO_ADDR_LIST, msg.as_string())  # Отправка письма
             server.quit()
-            print(f"Сообщение отправлено.")
+            print("Сообщение отправлено.")
             print(
                 f"Всего слотов: {total}, Доступно слотов: {available}, Недоступно слотов: {unavailable}"
             )
@@ -115,7 +115,7 @@ def send_mail(
             print(f"Ошибка при отправке письма: {e}. Повторяю отправку...")
             time.sleep(2)
     else:
-        print(f"Все попытки отправки письма не увенчались успехом. Ошибка.")
+        print("Все попытки отправки письма не увенчались успехом. Ошибка.")
     time.sleep(1)
 
 
